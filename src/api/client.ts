@@ -12,7 +12,7 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  if (!config.headers) config.headers = {};
+  if (!config.headers) config.headers = {} as any;
 
   // Always send TokenCybersoft
   config.headers["TokenCybersoft"] = CYBERSOFT_TOKEN;
