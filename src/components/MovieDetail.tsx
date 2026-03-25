@@ -1,13 +1,15 @@
 // src/components/MovieDetail.tsx
-import { useAppSelector } from "../hooks/reduxHooks";
+
+import { useAppSelector } from "../hooks";
+
 
 const MovieDetail = () => {
-  const { selectedMovie, loadingDetail } = useAppSelector(
+  const { detail, loadingDetail } = useAppSelector(
     (state) => state.movies
   );
 
   if (loadingDetail) return <p>Loading detail...</p>;
-  if (!selectedMovie)
+  if (!detail)
     return <p>Select a movie from the list to see the details.</p>;
 
   return (
@@ -18,11 +20,11 @@ const MovieDetail = () => {
         padding: "16px",
       }}
     >
-      <h2>{selectedMovie.tenPhim}</h2>
+      <h2>{detail.tenPhim}</h2>
       <div style={{ display: "flex", gap: "16px", marginTop: "12px" }}>
         <img
-          src={selectedMovie.hinhAnh}
-          alt={selectedMovie.tenPhim}
+          src={detail.hinhAnh}
+          alt={detail.tenPhim}
           style={{ width: "250px", objectFit: "cover" }}
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src =
@@ -31,18 +33,18 @@ const MovieDetail = () => {
         />
         <div>
           <p>
-            <strong>Description:</strong> {selectedMovie.moTa}
+            <strong>Description:</strong> {detail.moTa}
           </p>
           <p>
             <strong>Release date:</strong>{" "}
-            {new Date(selectedMovie.ngayKhoiChieu).toLocaleDateString()}
+            {new Date(detail.ngayKhoiChieu).toLocaleDateString()}
           </p>
           <p>
-            <strong>Rating:</strong> {selectedMovie.danhGia}/10
+            <strong>Rating:</strong> {detail.danhGia}/10
           </p>
           <p>
             <strong>Trailer:</strong>{" "}
-            <a href={selectedMovie.trailer} target="_blank" rel="noreferrer">
+            <a href={detail.trailer} target="_blank" rel="noreferrer">
               Watch trailer
             </a>
           </p>
