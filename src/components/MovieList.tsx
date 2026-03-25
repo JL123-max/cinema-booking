@@ -1,12 +1,12 @@
 // src/components/MovieList.tsx
 import { useEffect } from "react";
-import { fetchMovies, fetchMovieDetail } from "../store/moviesSlice";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { fetchMovies, fetchMovieDetail } from "../features/movies/movieSlice";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import type { Movie } from "../types/movie";
 
 const MovieList = () => {
   const dispatch = useAppDispatch();
-  const { list, loadingList, error } = useAppSelector((state) => state.movies);
+  const { list, loadingList, errorList } = useAppSelector((state) => state.movies);
 
   useEffect(() => {
     dispatch(fetchMovies());
@@ -17,7 +17,7 @@ const MovieList = () => {
   };
 
   if (loadingList) return <p>Loading movies...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
+  if (errorList) return <p style={{ color: "red" }}>{errorList}</p>;
 
   return (
     <div>
